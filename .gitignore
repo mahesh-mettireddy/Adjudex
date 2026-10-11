@@ -1,0 +1,28 @@
+﻿# dependencies / build
+node_modules
+dist
+.firebase
+coverage
+*.log
+
+# secrets: never commit (keep .env.example only)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+service-account*.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+test-results.json
+
+# local tests are intentionally excluded from the public demo repository
+**/*.test.js
+**/*.test.jsx
+**/*.spec.js
+**/*.spec.jsx
+server/testUtils.js
