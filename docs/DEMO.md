@@ -34,6 +34,12 @@ Use this opening:
 > AI agents can now spend a user's money. When a transaction goes wrong, how
 > do we prove whether the agent followed the user's instructions?
 
+Then add:
+
+> Payment systems can authorize an agent to attempt a transaction. Adjudex
+> independently verifies whether the completed action stayed within the
+> principal's mandate.
+
 Then show the mandate:
 
 ```text
@@ -139,6 +145,10 @@ Close with:
 - Invalid AI output is rejected and replaced by a clearly labelled local
   fallback.
 - The same engine works in the browser, through the API, and as a library.
+- The product complements payment authorization and fraud controls; it does not
+  claim to replace them.
+- The broader use cases include procurement, expenses, subscriptions, cloud
+  spend, invoices, and travel.
 
 ## What not to claim
 
@@ -152,7 +162,21 @@ The current project is not yet a complete production platform. Do not claim:
 
 Describe it as:
 
-> A deterministic control and audit layer for AI agents that spend money.
+> A deterministic authorization-verification and audit layer for AI agents that
+> spend money or create commitments.
+
+## Research context
+
+The problem is not hypothetical. Agentic commerce is moving toward controlled
+live transactions, while security guidance highlights excessive agency,
+privilege abuse, tool misuse, and goal hijacking as material risks:
+
+- [Visa Intelligent Commerce](https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.21961.html)
+- [OWASP AI Agent Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html)
+- [Reported Operator purchase incident](https://incidentdatabase.ai/cite/1028/)
+
+Do not present the incident report as a statistical study. Use it to explain
+why an independent, replayable mandate-versus-execution record is valuable.
 
 ## Recovery checklist
 

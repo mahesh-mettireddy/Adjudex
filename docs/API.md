@@ -1,8 +1,14 @@
 # Adjudex API
 
-A small JSON-over-HTTP API in front of the deterministic adjudication engine. Anyone can call it: send a
-**mandate** (what the principal authorised) and an **execution** (what the agent actually did), and get back an
-auditable verdict, or a calibrated abstention when the evidence is insufficient.
+A small JSON-over-HTTP API in front of the deterministic adjudication engine.
+Send a **mandate** (what the principal authorised) and an **execution** (what
+the agent actually did), then receive an auditable verdict or a calibrated
+abstention when evidence is insufficient.
+
+This API is the post-execution verification layer in a broader agentic-commerce
+control plane. It complements payment authorization and fraud systems; it does
+not itself determine legally binding liability, reverse payments, or replace
+merchant and network controls.
 
 Base URL (local): `http://127.0.0.1:8787` (`npm run server`). In `npm run dev` the Vite proxy forwards `/api` there.
 
