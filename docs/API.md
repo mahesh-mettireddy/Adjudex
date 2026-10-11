@@ -6,7 +6,7 @@ the agent actually did), then receive an auditable verdict or a calibrated
 abstention when evidence is insufficient.
 
 This API is the post-execution verification layer in a broader agentic-commerce
-control plane. It complements payment authorization and fraud systems; it does
+authorization workflow. It complements payment authorization and fraud systems; it does
 not itself determine legally binding liability, reverse payments, or replace
 merchant and network controls.
 

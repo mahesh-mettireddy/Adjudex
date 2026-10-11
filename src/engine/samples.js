@@ -1,4 +1,4 @@
-// Sample library: ready-to-use mandate and executions (see recommendations.md).
+// Sample library: ready-to-use mandates and executions for the demo.
 
 export const SAMPLE_MANDATE = Object.freeze({
   id: "MND-2026-00417",

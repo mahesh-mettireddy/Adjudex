@@ -1,6 +1,6 @@
 # Adjudex
 
-> **The control plane for AI agents that spend money.**
+> **The mandate-verification and audit layer for AI agents that spend money.**
 
 AI agents are moving from recommending products to booking travel, paying
 invoices, purchasing goods, and creating recurring commitments. The difficult
@@ -16,9 +16,11 @@ Mandate + proposed/actual execution + evidence
                     ↓
           independent policy evaluation
                     ↓
-       ALLOW · DENY · HUMAN REVIEW
+                    pre-auth: ALLOW · DENY · REQUIRE_HUMAN_APPROVAL
                     ↓
-             immutable audit trail
+                    post-auth: IN_MANDATE · OUT_OF_MANDATE · AMBIGUOUS_UNVERIFIABLE
+                    ↓
+                    tamper-evident audit record
 ```
 
 ## What Adjudex is
@@ -47,6 +49,18 @@ breach > unverifiable > in mandate
 ```
 
 It never guesses when a rule cannot be safely checked.
+
+## Who uses it
+
+Adjudex is built first for **trust-and-safety, dispute-operations, and finance
+teams at companies deploying purchasing or payment agents**. Their current
+manual workflow is to reconstruct a user instruction, inspect agent logs and
+merchant evidence, compare the actual transaction with policy, and decide
+whether to approve, escalate, or dispute it. Adjudex makes that comparison
+repeatable and produces the evidence trail for the reviewer.
+
+The same engine can later serve issuing banks, agent platforms, enterprise
+procurement teams, expense systems, and cloud-finance teams.
 
 ## Why this problem is real
 
@@ -96,14 +110,15 @@ Adjudex post-execution verification
 Audit record or human dispute workflow
 ```
 
-The current prototype demonstrates the post-execution verification layer. The
-next product expansion is a pre-authorization decision:
+The current prototype demonstrates both the post-execution verification layer
+and a demo pre-authorization mapping using the same deterministic rules:
 
 ```text
 ALLOW · DENY · REQUIRE_HUMAN_APPROVAL
 ```
 
-followed by a proposed-versus-actual diff after execution.
+followed by a proposed-versus-actual diff after execution. The pre-authorization
+card is a policy simulation in this prototype; it does not block a real payment.
 
 ## Current demo
 
@@ -123,7 +138,10 @@ It demonstrates:
 - Price, merchant, refundability, or date breach → `OUT_OF_MANDATE`.
 - Missing or vague soft evidence → `AMBIGUOUS_UNVERIFIABLE`.
 - Constraint-by-constraint explanations.
+- Pre-authorization mapping: `ALLOW`, `DENY`, or `REQUIRE_HUMAN_APPROVAL`.
 - Mandate checkability scoring.
+- Illustrative analyst-hours-saved impact calculator; assumptions are editable
+  and are not measured results.
 - Suggested fixes for vague mandates.
 - Deterministic local random-case generation.
 - Optional server-side Gemini generation.
@@ -244,21 +262,22 @@ const result = adjudicate(mandate, execution);
 - Verdicts are never accepted from a model.
 - API bodies, request IDs, origins, and rate limits are bounded.
 - Secrets remain server-side.
-- Audit records include engine and ruleset versions.
+- Audit records include engine and ruleset versions and tamper-evident hashes.
 
 ## Product boundary
 
 Adjudex does not currently:
 
 - Determine legally binding liability.
-- Stop or reverse a payment by itself.
+- Stop or reverse a real payment by itself.
 - Prove a mandate's cryptographic authenticity.
 - Replace payment-network fraud controls.
 - Independently verify every merchant claim.
 - Detect every prompt-injection or tool-compromise event.
 - Provide durable multi-tenant production storage.
 
-The product assigns responsibility according to configured policy and evidence.
+The product assigns operational responsibility according to configured policy
+and evidence. It does not make legally binding liability determinations.
 Legal, financial, and operational decisions remain subject to the deploying
 organization's controls and applicable law.
 
@@ -267,12 +286,12 @@ organization's controls and applicable law.
 The highest-value next capabilities are:
 
 1. Generic transaction and commitment policies beyond travel.
-2. Pre-authorization gates: `ALLOW`, `DENY`, `HUMAN_APPROVAL`.
-3. Proposed-versus-actual execution diffs.
+2. Enforced pre-authorization gates: `ALLOW`, `DENY`, `REQUIRE_HUMAN_APPROVAL`.
+3. Richer proposed-versus-actual execution diffs.
 4. Evidence provenance, source references, timestamps, and hashes.
 5. Agent identity, provider, version, principal, and delegated scope.
 6. Idempotency, duplicate-action, retry, refund, and subscription handling.
-7. Durable immutable storage, authentication, tenant isolation, and review queues.
+7. Durable tamper-evident storage, authentication, tenant isolation, and review queues.
 8. Merchant, receipt, invoice, travel, cloud, and payment integrations.
 
 ## Project layout

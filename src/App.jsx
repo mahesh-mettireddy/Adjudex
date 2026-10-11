@@ -12,6 +12,7 @@ import { CustomCasePanel } from "./components/CustomCasePanel.jsx";
 import { Hero } from "./components/Hero.jsx";
 import { RealityDiff } from "./components/RealityDiff.jsx";
 import { StatusBar } from "./components/StatusBar.jsx";
+import { PreAuthorization } from "./components/PreAuthorization.jsx";
 
 const clean = getSample("clean");
 const breach = getSample("breach");
@@ -81,6 +82,7 @@ export default function App() {
 
         <VerdictBanner result={audit} caseId={String(prepared.execution.caseId ?? "")} latencyMs={latencyMs} />
         <ActorFlow result={audit} mandate={prepared.mandate} execution={prepared.execution} />
+        <PreAuthorization result={audit} execution={prepared.execution} />
         <AuditDetails audit={audit} />
 
         <CasesPanel activeId={activeId} onLoadExecution={loadExecution} onGenerate={conn.generate} serverMode={conn.connection.mode === "server"} />

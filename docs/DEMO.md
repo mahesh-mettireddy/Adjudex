@@ -147,6 +147,8 @@ Close with:
 - The same engine works in the browser, through the API, and as a library.
 - The product complements payment authorization and fraud controls; it does not
   claim to replace them.
+- The pre-authorization card maps the same verdict to `ALLOW`, `DENY`, or
+  `REQUIRE_HUMAN_APPROVAL`; the prototype does not block a real payment.
 - The broader use cases include procurement, expenses, subscriptions, cloud
   spend, invoices, and travel.
 
