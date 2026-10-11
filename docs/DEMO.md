@@ -25,6 +25,9 @@ If Gemini is available:
 If Gemini is unavailable, continue anyway. The local deterministic generator
 keeps the demo functional and labels the fallback.
 
+Before presenting a new build, run `npm test` and `npm run build`. The current
+local baseline is **107 passing tests**.
+
 ## Presentation story
 
 ### 1. Frame the problem
@@ -135,6 +138,23 @@ Open the audit details or use the copy/download action. Highlight:
 Close with:
 
 > Every decision can be replayed, explained, and audited.
+
+### Local case verification
+
+Click each sample case and confirm that the post-execution verdict and
+pre-authorization decision stay aligned:
+
+| Sample | Post-execution verdict | Pre-authorization decision |
+| --- | --- | --- |
+| Clean case | `IN_MANDATE` | `ALLOW` |
+| Hard breach | `OUT_OF_MANDATE` | `DENY` |
+| Merchant breach | `OUT_OF_MANDATE` | `DENY` |
+| Ambiguous case | `AMBIGUOUS_UNVERIFIABLE` | `REQUIRE_HUMAN_APPROVAL` |
+| Contradictory evidence | `OUT_OF_MANDATE` | `DENY` |
+
+Also exercise the custom-case form with malformed JSON, missing required
+fields, an unknown field, and a valid case. Invalid input should show a clear
+validation message without changing the active audit.
 
 ## What to emphasize to judges
 
